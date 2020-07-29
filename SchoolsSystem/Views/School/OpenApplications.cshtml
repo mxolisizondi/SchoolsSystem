@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SchoolsSystem.Models.School>
+@{
+    ViewBag.Title = "AcceptApplication";
+    Layout = "~/Views/Shared/_LearnerLayout.cshtml";
+}
+
+@if (!Model.Any())
+{
+    <p>No school is accepting applications at then moment</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>School Name</th>
+                    <th>School Address</th>
+                    <th>For more Info</th>
+                    <th>Closing Date</th>
+                    <th>Apply Now!!</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var schools in Model)
+                {
+                    <tr>
+                        <td>@schools.Name</td>
+                        <td>@schools.Address</td>
+                        <td>@schools.TelephoneNumber</td>
+                        <td>@schools.ClosingDate.Value.Date.ToString(string.Format("dd/MM/yyy"))</td>
+                        <td><button class="btn btn-outline-primary">@Html.ActionLink("Apply Now", "SubmitApplication", "Learner", new {id = schools.Id}, null)</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section scripts
+{
+    @*<script>
+        $(document).ready(function () {
+            $("#deleteSchool").DataTable();
+        }
+        );
+    </script>*@
+}
+

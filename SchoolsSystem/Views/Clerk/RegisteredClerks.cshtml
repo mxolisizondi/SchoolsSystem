@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SchoolsSystem.Models.Clerk>
+@{
+    ViewBag.Title = "RegisteredClerks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@if (!Model.Any())
+{
+    <p>They are no registed Clerks</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table id="deleteSchool" class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>Full Names</th>
+                    <th>Email Address</th>
+                    <th>Cell Number</th>
+                    <th>Works At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var clerks in Model)
+                {
+                    <tr>
+                        <td>@clerks.Name</td>
+                        <td>@clerks.EmailAddress</td>
+                        <td>@clerks.CellNumber</td>
+                        <td>@clerks.School.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#deleteSchool").DataTable();
+
+        if ('@ViewBag.message' == "Added")
+            toastr.success('Clerk Added Successful');
+        });
+    </script>
+}

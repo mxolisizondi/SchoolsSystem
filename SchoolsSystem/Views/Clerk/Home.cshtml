@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+
+<h2>Home</h2>
+<p>This is the Clerk Home</p>
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            if ('@ViewBag.message' == "Change")
+                toastr.success('Status was Successful changed');
+        });
+
+    </script>
+}

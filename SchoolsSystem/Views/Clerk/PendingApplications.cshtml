@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SchoolsSystem.Models.Application>
+@{
+    ViewBag.Title = "PendingApplications";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+@if (!Model.Any())
+{
+    <p>You have no pending applications</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Previous Grade</th>
+                    <th>Applying For Grade</th> @*Consider Adding Date of Birth or Age as this may be part of reviewing Learner*@
+                    <th>Date Submmited</th>
+                    <th>Documents</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var application in Model)
+                {
+                <tr>
+                    <td>@application.Learner.Name</td>
+                    <td>@application.Learner.Surname</td>
+                    <td>@application.PreviousGrade</td>
+                    <td>@application.ApplyingGrade</td>
+                    <td>@application.DateSubmitted.Date.ToString(string.Format("dd/MM/yyy"))</td>
+                    <td>@application.ApplicationDocuments.Count</td>
+                    <td>@application.ApplicationStatus.Status</td>
+                    <td><button class="btn btn-outline-primary">@Html.ActionLink("View Application", "ViewApplication", "Application", new { id = application.Id }, null)</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section scripts
+{
+    @*<script>
+            $(document).ready(function () {
+                $("#deleteSchool").DataTable();
+            }
+            );
+        </script>*@
+}
+
+

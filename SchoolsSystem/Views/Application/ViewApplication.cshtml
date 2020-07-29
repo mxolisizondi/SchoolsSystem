@@ -1,0 +1,230 @@
+﻿@model SchoolsSystem.Models.Application
+@{
+    ViewBag.Title = "ChangeSchoolStatus";
+    Layout = "~/Views/Shared/_ClerkLayout.cshtml";
+}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            @Html.HiddenFor(m => m.Comment)
+            @using (Html.BeginForm("ApproveApplication", "Application", new { id = Model.Id, comment = Model.Comment }, FormMethod.Post, new { @class = "form-horizontal m-t-20", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                <div class="card-body">
+                    <h4 class="card-title">Application Form</h4>
+                    <!--Applicant Details-->
+                    <h5 style="text-align:center">Part A: Applicant Details </h5>
+                    <div class="border-top">
+                        <div class="form-group row">
+                            <label for="fname" class="col-sm-6 text-right control-label col-form-label">Full Names:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lname" class="col-sm-6 text-right control-label col-form-label">Last Name:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.Surname</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lname" class="col-sm-6 text-right control-label col-form-label">Date of Birth:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.DateOfBirth.Value.Date.ToString(string.Format("yyyy-MM-dd"))</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email1" class="col-sm-6 text-right control-label col-form-label">ID Number:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.IdNumber</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Age:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.Age</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Email Address:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.EmailAddress</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Cellphone Number:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.Learner.CellNumber</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <!--Parent Details-->
+                    <h5 style="text-align:center">Part B: Parent/Gadian Details </h5>
+                    <div class="border-top">
+                        <br />
+                        <div class="form-group row">
+                            <label for="fname" class="col-sm-6 text-right control-label col-form-label">Full Names:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ParentDetail.Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lname" class="col-sm-6 text-right control-label col-form-label">Last Name:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ParentDetail.Surname</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email1" class="col-sm-6 text-right control-label col-form-label">ID Number:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ParentDetail.IdNumber</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Email Address:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ParentDetail.EmailAddress</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Cellphone Number:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ParentDetail.CellNumber</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <!--School Details-->
+                    <h5 style="text-align:center">Part C: School Details</h5>
+                    <div class="border-top">
+                        <br />
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Applying to School:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.School.Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Previous School Name:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.PreviousSchool</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Previous Grade:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.PreviousGrade</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-6 text-right control-label col-form-label">Applying for Grade:</label>
+                            <div class="col-sm-6">
+                                <label for="fname" class="text-right control-label col-form-label">@Model.ApplyingGrade</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <!--Attached Documents-->
+                    <h5 style="text-align:center">Part E: Attached Documents</h5>
+                    <div class="border-top">
+                        <br />
+                        <div class="form-group row">
+                            @foreach (var document in Model.ApplicationDocuments)
+                            {
+                                <label for="cono1" class="col-sm-6 text-right control-label col-form-label">@document.FileName</label>
+                                <div class="col-sm-6">
+                                    <a class="btn btn-primary" href="javascript:;" onclick="DownloadFile(@document.Id)">View/Download</a>
+                                </div>
+                                <br />
+                                <br />
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--Clerk Approval-->
+            <h5 style="text-align:center">Part F: For Offical Use Only</h5>
+            <div class="border-top card-body">
+                <div class="form-group row">
+                    <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Comment</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="formComment" required></textarea>
+                    </div>
+                </div>
+                <a class="btn btn-primary" href="javascript:;" onclick="NoAction()">No Action</a>
+                <a class="btn btn-success" href="javascript:;" onclick="ApproveApplication()">Approve</a>
+                <a class="btn btn-primary" href="javascript:;" onclick="RequiredDocuments()">Require Documents</a>
+                <a class="btn btn-danger" href="javascript:;" onclick="RejectApplication()">Reject</a>
+            </div>
+            @using (Html.BeginForm("PendingApplications", "Clerk", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" id="btnNoAction" value="No Action" style="display:none" />
+            }
+
+            @using (Html.BeginForm("ApproveApplication", "Application", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="appComment" name="comment" />
+                <input type="submit" id="btnApprove" value="Approve" style="display:none" />
+            }
+
+            @using (Html.BeginForm("RequiredDocuments", "Application", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="rqComment" name="comment" />
+                <input type="submit" id="btnRequiredDocs" value="Required Documents" style="display:none" />
+            }
+
+            @using (Html.BeginForm("RejectApplication", "Application", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="rjComment" name="comment" />
+                <input type="submit" id="btnReject" value="Reject" style="display:none" />
+            }
+
+            @using (Html.BeginForm("DownloadFile", "Application", FormMethod.Post))
+            {
+                <input type="hidden" id="hfFileId" name="FileId" />
+                <input type="submit" id="btnDownload" value="Download" style="display:none" />
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    function DownloadFile(fileId) {
+        $("#hfFileId").val(fileId);
+        $("#btnDownload")[0].click();
+    };
+
+    function NoAction() {
+        $("#btnNoAction").click();
+    };
+
+    function ApproveApplication() {
+        var msg = $("#formComment").val();
+        $("#appComment").val(msg);
+        $("#btnApprove").click();
+    };
+
+    function RequiredDocuments() {
+        var msg = $("#formComment").val();
+        $("#rqComment").val(msg);
+        $("#btnRequiredDocs").click();
+    };
+
+    function RejectApplication() {
+        var msg = $("#formComment").val();
+        $("#rjComment").val(msg);
+        $("#btnReject").click();
+    };
+    </script>
+}
+

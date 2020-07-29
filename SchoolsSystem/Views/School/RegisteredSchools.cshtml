@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SchoolsSystem.Models.School>
+@{
+    ViewBag.Title = "RegisterdSchools";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@if (!Model.Any())
+{
+    <p>They are no registed schools</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table id="deleteSchool" class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>School Name</th>
+                    <th>Email Address</th>
+                    <th>Tel Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var schools in Model)
+                {
+                    <tr>
+                        <td>@schools.Name</td>
+                        <td>@schools.EmailAddress</td>
+                        <td>@schools.TelephoneNumber</td>
+                        <td>@schools.Address</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#deleteSchool").DataTable();
+        }
+        );
+        if ('@ViewBag.message' == "Added")
+            toastr.success('School Added Successful');
+
+        else if ('@ViewBag.message' == "Deleted")
+            toastr.success('School Deleted Successful');
+
+    </script>
+}
+

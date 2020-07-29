@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SchoolsSystem.Models.Application>
+@{
+    ViewBag.Title = "RejectedApplications";
+    Layout = "~/Views/Shared/_LearnerLayout.cshtml";
+}
+@if (!Model.Any())
+{
+    <p>You have no rejected applications</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>School</th>
+                    <th>Date Submmited</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var application in Model)
+                {
+                    <tr>
+                        <td>@application.School.Name</td>
+                        <td>@application.DateSubmitted.Date.ToString(string.Format("dd/MM/yyy"))</td>
+                        <td style="color:red">@application.ApplicationStatus.Status</td>
+                        <td style="color:red">@application.Comment</td>
+                        <td><button class="btn btn-outline-primary">@Html.ActionLink("Check Open Applications", "OpenApplications", "School")</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section scripts
+{
+    @*<script>
+            $(document).ready(function () {
+                $("#deleteSchool").DataTable();
+            }
+            );
+        </script>*@
+}

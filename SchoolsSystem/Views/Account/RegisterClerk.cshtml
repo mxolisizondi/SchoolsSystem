@@ -1,0 +1,70 @@
+﻿@model SchoolsSystem.ViewModels.Account.RegisterClerkViewModel
+@{
+    ViewBag.Title = "RegisterClerk";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("RegisterClerk", "Account", FormMethod.Post, new { @class = "form-horizontal m-t-20", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row p-b-30">
+        <div class="col-12">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                </div>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-lg", @placeholder = "Fullnames" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                </div>
+                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control form-control-lg", @placeholder = "Lastname" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="fas fa-phone"></i></span>
+                </div>
+                @Html.TextBoxFor(m => m.CelphoneNumber, new { @class = "form-control form-control-lg", @placeholder = "Cell No" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-list-ol"></i></span>
+                </div>
+                @Html.DropDownListFor(m => m.SchoolId, new SelectList(Model.Schools, "Id", "Name"), "Select the name of School", new { @class = "form-control form-control-lg" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                </div>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-lg", @placeholder = "Email" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="fas fa-key"></i></span>
+                </div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", @placeholder = "Password" })
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-info text-white" id="basic-addon1"><i class="fas fa-key"></i></span>
+                </div>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-control-lg", @placeholder = "Confirm Password" })
+            </div>
+            <div class="row border-top border-secondary">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="p-t-20">
+                            <input type="submit" class="btn btn-block btn-lg btn-info" value="Register" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

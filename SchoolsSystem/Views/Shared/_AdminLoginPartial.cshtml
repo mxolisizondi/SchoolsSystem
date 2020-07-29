@@ -1,0 +1,7 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link waves-effect waves-light"><i class="ti-user m-r-5 m-l-5 font-12"></i>@("Hello "+User.Identity.GetUserName())</a>
+    </li>
+}
