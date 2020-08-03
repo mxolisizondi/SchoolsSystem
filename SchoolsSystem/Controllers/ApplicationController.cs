@@ -37,6 +37,11 @@ namespace SchoolsSystem.Controllers
             if (clerk.SchoolId != application.SchoolId) // Only clerk assigned to this school can view
                 return HttpNotFound();
 
+            application.NotificationStatusId = NotificationStatus.Unread;
+            application.ApplicationStatusId = ApplicationStatus.Reviewed;
+            _context.SaveChanges();
+
+
             return View(application);
         }
 
@@ -63,6 +68,7 @@ namespace SchoolsSystem.Controllers
             if (form == null)
                 return HttpNotFound();
             form.ApplicationStatusId = ApplicationStatus.Accepted;
+            form.NotificationStatusId = NotificationStatus.Unread;
             form.Comment = comment;
             _context.SaveChanges();
 
@@ -77,6 +83,7 @@ namespace SchoolsSystem.Controllers
             if (applicationDetails == null)
                 return HttpNotFound();
             applicationDetails.ApplicationStatusId = ApplicationStatus.Declined;
+            applicationDetails.NotificationStatusId = NotificationStatus.Unread;
             applicationDetails.Comment = comment;
             _context.SaveChanges();
 
@@ -91,20 +98,12 @@ namespace SchoolsSystem.Controllers
             if (applicationDetails == null)
                 return HttpNotFound();
             applicationDetails.ApplicationStatusId = ApplicationStatus.RequiredDocuments;
+            applicationDetails.NotificationStatusId = NotificationStatus.Unread;
             applicationDetails.Comment = comment;
             _context.SaveChanges();
 
             return RedirectToAction("PendingApplications", "Clerk");
         }
-
-        public JsonResult GetNotifications()
-        {
-            var applicationDetails = _context.Applications;
-            return Json(applicationDetails, JsonRequestBehavior.AllowGet);
-        }
-
-
-
 
     }
 }

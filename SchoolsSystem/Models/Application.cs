@@ -27,6 +27,9 @@ namespace SchoolsSystem.Models
         public ApplicationStatus ApplicationStatus { get; set; }
         public byte ApplicationStatusId { get; set; }
 
+        public NotificationStatus NotificationStatus { get; set; }
+        public byte NotificationStatusId { get; set; }
+
         [Display(Name = "Previous School")]
         public string PreviousSchool { get; set; }
 

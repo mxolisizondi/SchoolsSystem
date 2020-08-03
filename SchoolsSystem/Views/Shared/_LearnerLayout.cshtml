@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
@@ -26,11 +27,11 @@
 <body>
     <!-- Preloader - style you can find in spinners.css -->
     @*<div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
-    </div>*@
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>*@
     <!-- Main wrapper - style you can find in pages.scss -->
     <div id="main-wrapper">
         <!-- Topbar header - style you can find in pages.scss -->
@@ -81,13 +82,10 @@
                         <!-- Comment -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-bell font-24"></i>
+                                <i id="bell" class="mdi mdi-bell font-24"><span id="countAllNotifications"></span></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="myNotifyList">
                                 <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
                         <!-- Messages -->
@@ -179,9 +177,9 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-file-multiple"></i><span class="hide-menu">View Applicatons</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="@Url.Action("PendingApplications","Learner")" class="sidebar-link"> <i class="fas fa-hand-paper"></i> <span class="hide-menu">Waiting for Decision</span></a></li>
-                                <li class="sidebar-item"><a href="@Url.Action("ApprovedApplications","Learner")" class="sidebar-link"> <i class="mdi mdi-thumb-up"></i> <span class="hide-menu">Approved  <span style="padding: .25rem .5rem;font-size: 9px" class="btn btn-sm btn-success btn-rounded">1 New</span></span></a></li>
-                                <li class="sidebar-item"><a href="@Url.Action("RejectedApplications","Learner")" class="sidebar-link"> <i class="mdi mdi-thumb-down"></i> <span class="hide-menu">Rejected <span style="padding: .25rem .5rem;font-size: 9px" class="btn btn-sm btn-danger btn-rounded">4 New</span></span></a></li>
+                                <li class="sidebar-item"><a href="@Url.Action("PendingApplications","Learner")" class="sidebar-link"> <i class="fas fa-hand-paper"></i> <span class="hide-menu">Waiting for Decision<span id="pendingNotifications" style="font-size: 9px"></span></span></a></li>
+                                <li class="sidebar-item"><a href="@Url.Action("ApprovedApplications","Learner")" class="sidebar-link"> <i class="mdi mdi-thumb-up"></i> <span class="hide-menu">Approved <span id="approvedNotifications" style="font-size: 9px"></span></span></a></li>
+                                <li class="sidebar-item"><a href="@Url.Action("RejectedApplications","Learner")" class="sidebar-link"> <i class="mdi mdi-thumb-down"></i> <span class="hide-menu">Rejected <span id="rejectedNotifications" style="font-size: 9px"></span></span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("WithdrawedApplications","Learner")" aria-expanded="false"><i class="fas fa-trash-alt"></i><span class="hide-menu">Withdrawed Application</span></a></li>
@@ -222,6 +220,136 @@
     @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 
-</body>
+<script type="text/javascript">
+        $(document).ready(function () {
+            setInterval(function () {
+                GetAllTotalNewNotifications();
+                GetNewApprovedNotifications();
+                GetNewRejectedNotifications();
+                GetChangeInApplicationNotification();
+            }, 1000);
+        });
 
+        function GetAllTotalNewNotifications() {
+            console.log('Hey It me Get All Notifications');
+            $.ajax({
+                type: "GET",
+                url: "/Notification/GetNewNotifications/" + '@User.Identity.GetUserId()',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response != null) {
+
+                        var p = 0;
+                        $.each(response, function () {
+                            p++;
+                        });
+
+                        $('#myNotifyList').html("");
+                        if (p > 0) {
+                            $('#countAllNotifications').html("<span style='font - size: 9px'>(" + p + ")</span>");
+                        }
+                        else {
+                            $('#countAllNotifications').html("");
+                        }
+                        $('#myAllNotifications').html("");
+                    }
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+        function GetNewApprovedNotifications() {
+            console.log('Hey It me Approved Notifications');
+            $.ajax({
+                type: "GET",
+                url: "/Notification/GetApprovedApplicationNotifications",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response != null) {
+
+                        var p = 0;
+                        $.each(response, function () {
+                            p++;
+                        });
+                        if (p > 0) {
+                            $('#approvedNotifications').html(" <span style='padding: .25rem .5rem; font-size: 9px' class='btn btn-sm btn-success btn-rounded'> " + p + " New</span>");
+                        }
+                        else {
+                            $('#approvedNotifications').html("");
+                        }
+                    }
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+        function GetNewRejectedNotifications() {
+            console.log('Hey It me Rejected Notifications');
+            $.ajax({
+                type: "GET",
+                url: "/Notification/GetRejectedApplicationNotifications",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response != null) {
+
+                        var p = 0;
+                        $.each(response, function () {
+                            p++;
+                        });
+                        if (p > 0) {
+                            $('#rejectedNotifications').html(" <span style='padding: .25rem .5rem; font-size: 9px' class='btn btn-sm btn-danger btn-rounded'> " + p + " New</span>");
+                        }
+                        else {
+                            $('#rejectedNotifications').html("");
+                        }
+                    }
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+        function GetChangeInApplicationNotification() {
+            console.log('Hey It me Pending Notifications');
+            $.ajax({
+                type: "GET",
+                url: "/Notification/GetPendingApplicationNotifications",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    if (response != null) {
+
+                        var p = 0;
+                        $.each(response, function () {
+                            p++;
+                        });
+                        if (p > 0) {
+                            $('#pendingNotifications').html(" <span style='padding: .25rem .5rem; font-size: 9px' class='btn btn-sm btn-warning btn-rounded'> " + p + " New</span>");
+                        }
+                        else {
+                            $('#pendingNotifications').html("");
+                        }
+                    }
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+
+</script>
+</body>
 </html>

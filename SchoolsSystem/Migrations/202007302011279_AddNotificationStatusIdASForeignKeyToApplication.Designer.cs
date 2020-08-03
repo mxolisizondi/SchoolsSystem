@@ -7,13 +7,13 @@ namespace SchoolsSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class EnableBroker : IMigrationMetadata
+    public sealed partial class AddNotificationStatusIdASForeignKeyToApplication : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(EnableBroker));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNotificationStatusIdASForeignKeyToApplication));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007290955344_EnableBroker"; }
+            get { return "202007302011279_AddNotificationStatusIdASForeignKeyToApplication"; }
         }
         
         string IMigrationMetadata.Source

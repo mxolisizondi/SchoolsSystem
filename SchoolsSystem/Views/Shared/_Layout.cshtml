@@ -28,9 +28,11 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </div> 
     <div class="container body-content">
-        @RenderBody()
+        <div id="renderbody">
+            @RenderBody()
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -40,5 +42,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        console.log('Hey Iam the layout which means I was reloaded');
+    </script> 
 </body>
 </html>

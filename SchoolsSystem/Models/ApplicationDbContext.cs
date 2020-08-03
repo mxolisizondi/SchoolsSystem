@@ -17,6 +17,7 @@ namespace SchoolsSystem.Models
         public DbSet<AcceptApplication> AcceptApplications { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<ApplicationDocument> ApplicationDocuments { get; set; }
+        public DbSet<NotificationStatus> NotificationStatuses { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

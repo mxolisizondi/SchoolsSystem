@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LearnerController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Enum\ApplicationStatus.cs" />
     <Compile Include="Global.asax.cs">
@@ -312,13 +313,17 @@
     <Compile Include="Migrations\202005191505107_AddDataAnotaionOnLearnerModel.Designer.cs">
       <DependentUpon>202005191505107_AddDataAnotaionOnLearnerModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007290955344_EnableBroker.cs" />
-    <Compile Include="Migrations\202007290955344_EnableBroker.Designer.cs">
-      <DependentUpon>202007290955344_EnableBroker.cs</DependentUpon>
+    <Compile Include="Migrations\202007302006435_AddNotificationStatusModel.cs" />
+    <Compile Include="Migrations\202007302006435_AddNotificationStatusModel.Designer.cs">
+      <DependentUpon>202007302006435_AddNotificationStatusModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007291016475_EnableBroker1.cs" />
-    <Compile Include="Migrations\202007291016475_EnableBroker1.Designer.cs">
-      <DependentUpon>202007291016475_EnableBroker1.cs</DependentUpon>
+    <Compile Include="Migrations\202007302011279_AddNotificationStatusIdASForeignKeyToApplication.cs" />
+    <Compile Include="Migrations\202007302011279_AddNotificationStatusIdASForeignKeyToApplication.Designer.cs">
+      <DependentUpon>202007302011279_AddNotificationStatusIdASForeignKeyToApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007302015005_PopulateNotificationStatusWithData.cs" />
+    <Compile Include="Migrations\202007302015005_PopulateNotificationStatusWithData.Designer.cs">
+      <DependentUpon>202007302015005_PopulateNotificationStatusWithData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AcceptApplication.cs" />
@@ -331,6 +336,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Learner.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotificationStatus.cs" />
     <Compile Include="Models\NotificationComponents.cs" />
     <Compile Include="Models\ParentDetail.cs" />
     <Compile Include="Models\RoleName.cs" />
@@ -1537,6 +1543,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1634,11 +1641,14 @@
     <EmbeddedResource Include="Migrations\202005191505107_AddDataAnotaionOnLearnerModel.resx">
       <DependentUpon>202005191505107_AddDataAnotaionOnLearnerModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007290955344_EnableBroker.resx">
-      <DependentUpon>202007290955344_EnableBroker.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007302006435_AddNotificationStatusModel.resx">
+      <DependentUpon>202007302006435_AddNotificationStatusModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007291016475_EnableBroker1.resx">
-      <DependentUpon>202007291016475_EnableBroker1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007302011279_AddNotificationStatusIdASForeignKeyToApplication.resx">
+      <DependentUpon>202007302011279_AddNotificationStatusIdASForeignKeyToApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007302015005_PopulateNotificationStatusWithData.resx">
+      <DependentUpon>202007302015005_PopulateNotificationStatusWithData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

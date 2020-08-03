@@ -92,7 +92,9 @@ namespace SchoolsSystem.Controllers
                 ApplicationStatusId = ApplicationStatus.Received,
                 ApplyingGrade = model.ApplyingGrade,
                 PreviousGrade = model.PreviousGrade,
-                DateSubmitted = DateTime.Now
+                PreviousSchool = model.PreviousSchool,
+                DateSubmitted = DateTime.Now,
+                NotificationStatusId = NotificationStatus.Read
 
             };
             _context.Applications.Add(application);
