@@ -152,6 +152,12 @@ namespace SchoolsSystem.Controllers
                                                            u.ApplicationStatusId != ApplicationStatus.Declined &&
                                                            u.ApplicationStatusId != ApplicationStatus.Withdrawed)
                                                            .ToList();
+            //Change Notification status from unRead to Read
+            foreach(var application in pendingApplications)
+            {
+                application.NotificationStatusId = NotificationStatus.Read;
+            }
+            _context.SaveChanges();
 
             return View(pendingApplications);
         }
@@ -169,6 +175,12 @@ namespace SchoolsSystem.Controllers
                                                     .Where(u => u.LearnerUseId == userId &&
                                                            u.ApplicationStatus.Id == ApplicationStatus.Accepted)
                                                            .ToList();
+            //Change Notification status from unRead to Read
+            foreach (var application in approvedApplications)
+            {
+                application.NotificationStatusId = NotificationStatus.Read;
+            }
+            _context.SaveChanges();
 
             return View(approvedApplications);
         }
@@ -177,14 +189,20 @@ namespace SchoolsSystem.Controllers
         public ActionResult RejectedApplications()
         {
             var userId = User.Identity.GetUserId();
-            var approvedApplications = _context.Applications.Include(d => d.ApplicationDocuments)
+            var rejectedApplications = _context.Applications.Include(d => d.ApplicationDocuments)
                                                     .Include(s => s.School)
                                                     .Include(s => s.ApplicationStatus)
                                                     .Where(u => u.LearnerUseId == userId &&
                                                            u.ApplicationStatus.Id == ApplicationStatus.Declined)
                                                            .ToList();
+            //Change Notification status from unRead to Read
+            foreach (var application in rejectedApplications)
+            {
+                application.NotificationStatusId = NotificationStatus.Read;
+            }
+            _context.SaveChanges();
 
-            return View(approvedApplications);
+            return View(rejectedApplications);
         }
 
         //GET: All withdrawed applicationd
